@@ -1,43 +1,42 @@
-import java.util.Scanner;
-
 /**
- * Practical 1 (Part A) - Vending Machine
- * Concepts: enum, switch EXPRESSION, loops, Scanner input.
- *
- * A snack costs 15. The user keeps inserting coins (by name) until the
- * inserted total reaches 15, then the machine returns the change.
+ Practical 1 (Part A) - 1.1 : Vending Machine
+ (a) Define an enum Coin with constants ONE, TWO, FIVE, TEN.
+ (b) In main, set a snack price of 15 and a running total of 0; create a Scanner.
+ (c) Loop: read a coin name, use a switch expression to convert the Coin to its value
+ (ONE→1, TWO→2, FIVE→5, TEN→10), add it to the total, and print the total so
+ far.
+ (d) Stop the loop once the total reaches 15 or more.
+ (e) Print the change to return (total − 15).
+ Expected output:
+            TEN then FIVE prints “Paid. Change: 0”; TEN then TEN prints
+            “Paid. Change: 5”.
  */
 
 //CODE :
 
+import java.util.Scanner;
 public class Pra1VendingMachine {
-    // An enum is a fixed set of named constants. Here, one per coin.
     enum Coin { ONE, TWO, FIVE, TEN }
 
     public static void main(String[] args) {
-        final int PRICE = 15;            // snack price
-        int total = 0;                   // money inserted so far
+        final int PRICE = 15;
+        int total = 0;
         Scanner sc = new Scanner(System.in);
-
         System.out.println("Snack price: " + PRICE);
         System.out.println("Insert coins (ONE, TWO, FIVE, TEN):");
 
-        // Keep asking until enough money is inserted.
+
         while (total < PRICE) {
             System.out.print("Coin: ");
-            String input = sc.next().toUpperCase();     // read one word, ignore case
+            String input = sc.next().toUpperCase();
 
-            // Coin.valueOf turns the text "TEN" into Coin.TEN.
-            // If the text is not a coin name, we catch the error and re-ask.
             Coin coin;
             try {
                 coin = Coin.valueOf(input);
             } catch (IllegalArgumentException e) {
                 System.out.println("  Not a valid coin, try again.");
-                continue;                                // ask again
+                continue;
             }
-
-            // A switch EXPRESSION returns a value (note the '->' arrows, no break).
             int value =0;
             switch(coin)
             {
@@ -65,8 +64,6 @@ public class Pra1VendingMachine {
             total += value;
             System.out.println("  Inserted so far: " + total);
         }
-
-        // Loop ended, so total >= PRICE. Change is the surplus.
         System.out.println("Paid. Change: " + (total - PRICE));
         sc.close();
     }
