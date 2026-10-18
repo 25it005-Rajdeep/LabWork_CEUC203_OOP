@@ -1,34 +1,36 @@
+import java.util.Objects;
+
 public class Point {
+
     private int x;
     private int y;
-    Point(){
-        x=0;
-        y=0;
-    }
-    Point(int x, int y){
+
+    public Point(int x, int y) {
         this.x = x;
-        this.y = y;
-    }
-    int getX(){
-        return x;
-    }
-    int getY(){
-        return y;
-    }
-    int setX(int x){
-        this.x = x;
-    }
-    int setY(int y){
         this.y = y;
     }
 
     @Override
     public String toString() {
-        return "[ x :" + x + ", y : " + y + " ]";
+        return "(" + x + ", " + y + ")";
     }
 
     @Override
     public boolean equals(Object obj) {
-        return (this.x == x && this.y ==y );
+
+        if (this == obj)
+            return true;
+
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        Point other = (Point) obj;
+
+        return x == other.x && y == other.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
